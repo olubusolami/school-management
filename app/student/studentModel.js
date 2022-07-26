@@ -6,7 +6,6 @@ const studentSchema = new mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      unique: true,
     },
     lastName: {
       type: String,
@@ -15,6 +14,7 @@ const studentSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "Email address is required."],
+      unique: true,
       validate: [validator.isEmail, "Please provide a valid email address."],
     },
     phoneNumber: {
@@ -33,6 +33,11 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
       default: "pending",
+    },
+    paid: {
+      type: String,
+      required: true,
+      default: "no",
     },
   },
   {

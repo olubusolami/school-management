@@ -20,6 +20,14 @@ router.get(
   studentController.getApprovedStudent
 );
 
+//GET reqest to /student fetch all approved student by teacher
+router.get(
+  "/assigned",
+  auth.verifyToken,
+  auth.isTeacher,
+  studentController.getApprovedStudent
+);
+
 //GET request /student/:id to fetch a single student
 router.get(
   "/:id",
@@ -51,5 +59,8 @@ router.get(
   auth.isTeacher,
   studentController.getStudents
 );
+
+// //initialize payment
+// router.post("/transaction/initialize", studentController.paymentForStudent);
 
 module.exports = router;
