@@ -141,3 +141,14 @@ exports.getApprovedStudent = async (req, res) => {
     }
   });
 };
+
+//GET reqest to /students fetch all paid student
+exports.paidStudent = async (req, res) => {
+  Student.find({ paid: "yes" }, (err, students) => {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else {
+      return res.status(200).json({ students });
+    }
+  });
+};

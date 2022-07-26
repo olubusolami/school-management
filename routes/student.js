@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../app/middleware");
 const studentController = require("../app/student/studentController");
+const paymentController = require("../app/payment/paymentController");
 
 //POST request to /students to register as a new student
 router.post("/register", studentController.createStudent);
@@ -22,7 +23,7 @@ router.get(
 
 //GET reqest to /student fetch all approved student by teacher
 router.get(
-  "/assigned",
+  "/enrolled",
   auth.verifyToken,
   auth.isTeacher,
   studentController.getApprovedStudent
@@ -60,7 +61,12 @@ router.get(
   studentController.getStudents
 );
 
-// //initialize payment
-// router.post("/transaction/initialize", studentController.paymentForStudent);
+// GET request to /paidStudent
+router.get(
+  "/payment",
+  auth.verifyToken,
+  auth.isAdmin,
+  studentController.paidStudent
+);
 
 module.exports = router;
