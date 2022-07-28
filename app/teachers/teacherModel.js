@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 
 const teacherSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+  name: {
     type: String,
     required: true,
   },
@@ -22,6 +18,9 @@ const teacherSchema = new mongoose.Schema({
   },
   token: {
     type: String,
+  },
+  subject: {
+    type: Array,
   },
 });
 

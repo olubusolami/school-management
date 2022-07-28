@@ -40,7 +40,7 @@ exports.createStudent = async function (req, res) {
         return res.status(500).json({ message: err });
       } else {
         return res
-          .status(200)
+          .status(201)
           .json({ message: "new student created", newStudent });
       }
     }

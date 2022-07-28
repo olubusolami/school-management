@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../app/middleware");
 const studentController = require("../app/student/studentController");
-const paymentController = require("../app/payment/paymentController");
 
 //POST request to /students to register as a new student
 router.post("/register", studentController.createStudent);
@@ -10,8 +9,16 @@ router.post("/register", studentController.createStudent);
 //login as a student
 router.post("/login", studentController.loginStudent);
 
-//GET reqest to /students fetch all student
+//GET reqest to /students fetch all student by admin
 router.get("/", auth.verifyToken, auth.isAdmin, studentController.getStudents);
+
+//GET reqest to /students fetch all student by teacher
+router.get(
+  "/list",
+  auth.verifyToken,
+  auth.isTeacher,
+  studentController.getStudents
+);
 
 //GET reqest to /student fetch all approved student by admin
 router.get(
@@ -27,6 +34,14 @@ router.get(
   auth.verifyToken,
   auth.isTeacher,
   studentController.getApprovedStudent
+);
+
+//GET request to /paidStudent
+router.get(
+  "/payment",
+  auth.verifyToken,
+  auth.isAdmin,
+  studentController.paidStudent
 );
 
 //GET request /student/:id to fetch a single student
@@ -51,22 +66,6 @@ router.delete(
   auth.verifyToken,
   auth.isAdmin,
   studentController.deleteStudentById
-);
-
-//GET reqest to /students fetch all student by teacher
-router.get(
-  "/",
-  auth.verifyToken,
-  auth.isTeacher,
-  studentController.getStudents
-);
-
-// GET request to /paidStudent
-router.get(
-  "/payment",
-  auth.verifyToken,
-  auth.isAdmin,
-  studentController.paidStudent
 );
 
 module.exports = router;
