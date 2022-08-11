@@ -63,6 +63,30 @@ exports.loginTeacher = async function (req, res) {
   }
 };
 
+//GET reqest to /teachers fetch all teacher
+exports.getTeachers = async (req, res) => {
+  Teacher.find({}, (err, teachers) => {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else {
+      return res.status(200).json({ teachers });
+    }
+  });
+};
+
+//GET request /teacher/:id to fetch a single teacher
+exports.getTeacherById = async (req, res) => {
+  Teacher.findOne({ _id: req.params.id }, (err, teacher) => {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else if (!teacher) {
+      return res.status(404).json({ message: "teacher was not found" });
+    } else {
+      return res.status(200).json({ teacher });
+    }
+  });
+};
+
 //DELETE request /teacher/:id to fetch a single teacher
 exports.deleteTeacherById = async (req, res) => {
   Teacher.findOneAndDelete(req.params.id, (err, teacher) => {
@@ -72,6 +96,21 @@ exports.deleteTeacherById = async (req, res) => {
       return res.status(404).json({ message: "teacher was not found" });
     } else {
       return res.status(200).json({ message: "teacher deleted successfully" });
+    }
+  });
+};
+
+//GET request
+exports.getSubjectAssign = async (req, res) => {
+  Teacher.findOneById(req.params.id, (err, teacher) => {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else if (!teacher) {
+      return res.status(404).json({ message: "teacher was not found" });
+    } else {
+      return res
+        .status(200)
+        .json({ message: `your subject are" ${subject}, ${teacher}` });
     }
   });
 };

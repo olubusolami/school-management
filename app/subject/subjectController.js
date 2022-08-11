@@ -36,22 +36,13 @@ exports.assignTeacherToSubject = async (req, res) => {
   const subject = await Subject.find({ name: req.body.subject });
   if (!subject) return res.status(400).json("subject is not found");
 
-  //checking teacher via id
-  const teacher = await Teacher.findById(req.body.id);
-  if (!teacher) return res.status(400).json("id is not assign to a teacher");
-
-  //assign to teacher
-  try {
-    const teacherSubjectUpdate = await Teacher.findOneAndUpdate(
-      { _id: teacher._id },
-      { subject: subject.name }
-    );
-    if (!teacherSubjectUpdate)
-      return res
-        .status(500)
-        .json({ error: "Unable to asign teacher to as subject, Try again!" });
-    return res.status(200).json({ message: "subject update is successful" });
-  } catch (err) {
-    return { error: "Update was unsuccessful" };
-  }
+  //checking teacher via name and assign to a subject
+  const teacher = await Teacher.findById(req.params.teacherId);
+  if (!teacher) return res.status(400).json("teacher not found");
+  teacher.subject = teacher.subject || [];
+  if (teacher.subject.indexOf(req.body.subject) >= 0)
+    return res.status(400).json("subject is already assigned to a teacher");
+  teacher.subject.push(req.body.subject);
+  teacher.save();
+  return res.status(200).json("subject is assigned to a teacher");
 };

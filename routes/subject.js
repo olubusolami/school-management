@@ -12,7 +12,7 @@ router.post(
 );
 
 router.post(
-  "/assign",
+  "/assign/:teacherId",
   auth.verifyToken,
   auth.isAdmin,
   subjectController.assignTeacherToSubject
