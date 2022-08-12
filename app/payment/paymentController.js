@@ -24,6 +24,8 @@ exports.initializePayment = async (req, res) => {
   if (error) return res.status(400).json(error);
   if (data) {
     const payment = await Payment.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       amount: req.body.amount,
       email: req.body.email,
       reference: data.data.reference,

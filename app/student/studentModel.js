@@ -39,6 +39,9 @@ const studentSchema = new mongoose.Schema(
       required: true,
       default: "no",
     },
+    subject: {
+      type: Array,
+    },
   },
   {
     timestamps: true,

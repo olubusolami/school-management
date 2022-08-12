@@ -9,6 +9,7 @@ const adminRoute = require("./routes/admin");
 const studentRoute = require("./routes/student");
 const teacherRoute = require("./routes/teacher");
 const paymentRoute = require("./routes/payment");
+const subjectRoute = require("./routes/subject");
 
 (async function db() {
   connection();
@@ -39,6 +40,7 @@ app.use("/admin", adminRoute);
 app.use("/teacher", teacherRoute);
 app.use("/student", studentRoute);
 app.use("/", paymentRoute);
+app.use("/", subjectRoute);
 
 //404 error
 app.use((req, res, next) => {
