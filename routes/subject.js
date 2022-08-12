@@ -18,4 +18,7 @@ router.post(
   subjectController.assignTeacherToSubject
 );
 
+//register for subject
+router.post("/subject", subjectController.chooseSubject);
+
 module.exports = router;
